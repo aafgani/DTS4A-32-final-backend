@@ -43,7 +43,12 @@ namespace MovieApp.Service.Storage
 
             foreach (TableEntity entity in entities)
             {
-                userProfile.FullName = entity.GetString("FullName");
+                var key = entity.GetString("RowKey");
+                if (key.Equals(rowKey))
+                {
+                    userProfile.FullName = entity.GetString("FullName");
+                    return userProfile;
+                }
             }
 
             return userProfile;
