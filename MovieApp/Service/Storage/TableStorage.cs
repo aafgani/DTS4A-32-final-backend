@@ -35,7 +35,7 @@ namespace MovieApp.Service.Storage
             tableClient.UpsertEntity(entity);
         }
 
-        public UserProfile GetUserProfile(string rowKey)
+        public UserProfile GetUserProfileByKey(string rowKey)
         {
             var userProfile = new UserProfile();
             string filter = $"PartitionKey eq '{_tableName}' or RowKey eq '{rowKey}' ";
@@ -52,6 +52,28 @@ namespace MovieApp.Service.Storage
             }
 
             return userProfile;
+        }
+
+        public List<UserProfile> GetUserProfile()
+        {
+            var userProfiles = new List<UserProfile>();
+            string filter = $"PartitionKey eq '{_tableName}' ";
+            Pageable<TableEntity> entities = tableClient.Query<TableEntity>(filter: filter);
+
+            foreach (TableEntity entity in entities)
+            {
+                var key = entity.GetString("RowKey");
+                if (!string.IsNullOrEmpty(key))
+                {
+                    userProfiles.Add(new UserProfile
+                    {
+                        UserId = key,
+                        FullName = entity.GetString("FullName")
+                    });
+                }
+            }
+
+            return userProfiles;
         }
     }
 }

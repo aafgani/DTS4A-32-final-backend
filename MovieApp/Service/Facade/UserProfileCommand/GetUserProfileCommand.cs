@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace MovieApp.Service.Facade.UserProfileCommand
 {
-    public class GetUserProfileCommand : IRequest<UserProfile>
+    public class GetUserProfileCommand : IRequest<List<UserProfile>>
     {
         public string UserId { get; set; }
     }
 
-    public class GetUserProfileCommandHandler : IRequestHandler<GetUserProfileCommand, UserProfile>
+    public class GetUserProfileCommandHandler : IRequestHandler<GetUserProfileCommand, List<UserProfile>>
     {
         private readonly ITableStorage tableStorage;
 
@@ -22,11 +22,11 @@ namespace MovieApp.Service.Facade.UserProfileCommand
         {
             this.tableStorage = tableStorage;
         }
-        public Task<UserProfile> Handle(GetUserProfileCommand request, CancellationToken cancellationToken)
+        public Task<List<UserProfile>> Handle(GetUserProfileCommand request, CancellationToken cancellationToken)
         {
-            var userProfile = tableStorage.GetUserProfile(request.UserId);
+            var userProfiles = tableStorage.GetUserProfile();
 
-            return Task.FromResult(userProfile);
+            return Task.FromResult(userProfiles);
         }
     }
 }

@@ -11,7 +11,9 @@ namespace MovieApp.Service.Storage.Interface
     {
         void UpsertUserProfile(string rowKey, UserProfile userProfile);
 
-        UserProfile GetUserProfile(string rowKey);
+        UserProfile GetUserProfileByKey(string rowKey);
+
+        List<UserProfile> GetUserProfile();
 
     }
 }
