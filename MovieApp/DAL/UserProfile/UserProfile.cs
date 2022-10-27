@@ -10,5 +10,6 @@ namespace MovieApp.DAL.UserProfile
     {
         public string UserId { get; set; }
         public string FullName { get; set; }
+        public string CreatedDate { get; set; }
     }
 }

@@ -63,12 +63,14 @@ namespace MovieApp.Service.Storage
             foreach (TableEntity entity in entities)
             {
                 var key = entity.GetString("RowKey");
+                var timestamp = entity.GetDateTime("Timestamp");
                 if (!string.IsNullOrEmpty(key))
                 {
                     userProfiles.Add(new UserProfile
                     {
                         UserId = key,
-                        FullName = entity.GetString("FullName")
+                        FullName = entity.GetString("FullName"),
+                        CreatedDate = timestamp?.ToString("dd MMMM yyyy HH:mm:ss")
                     });
                 }
             }
