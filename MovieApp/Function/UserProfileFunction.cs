@@ -38,12 +38,15 @@ namespace MovieApp.Function
         }
 
         [Function($"{functionName}-Get")]
-        public async Task<HttpResponseData> GetAsync([HttpTrigger(AuthorizationLevel.Anonymous, "post")] HttpRequestData req)
+        public async Task<HttpResponseData> GetAsync([HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequestData req, string id)
         {
             _logger.LogInformation("C# HTTP trigger function processed a request.");
 
             var payload = await new StreamReader(req.Body).ReadToEndAsync();
-            var command = JsonConvert.DeserializeObject<GetUserProfileCommand>(payload);
+            var command = new GetUserProfileCommand()
+            {
+                UserId = id
+            };
             var data = await _mediator.Send(command);
 
             var response = req.CreateResponse(HttpStatusCode.OK);
