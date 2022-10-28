@@ -15,5 +15,7 @@ namespace MovieApp.Service.Storage.Interface
 
         List<UserProfile> GetUserProfile();
 
+        void DeleteUserProfileByKet(string rowKey);
+
     }
 }

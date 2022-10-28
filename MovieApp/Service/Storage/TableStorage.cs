@@ -77,5 +77,10 @@ namespace MovieApp.Service.Storage
 
             return userProfiles;
         }
+
+        public void DeleteUserProfileByKet(string rowKey)
+        {
+            tableClient.DeleteEntity(_tableName, rowKey);
+        }
     }
 }

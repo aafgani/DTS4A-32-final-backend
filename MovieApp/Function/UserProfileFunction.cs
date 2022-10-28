@@ -57,5 +57,22 @@ namespace MovieApp.Function
             return response;
         }
 
+        [Function($"{functionName}-Delete")]
+        public async Task<HttpResponseData> DeleteAsync([HttpTrigger(AuthorizationLevel.Anonymous, "post")] HttpRequestData req)
+        {
+            _logger.LogInformation("C# HTTP trigger function processed a request.");
+
+            var payload = await new StreamReader(req.Body).ReadToEndAsync();
+            var command = JsonConvert.DeserializeObject<DeleteUserProfileCommand>(payload);
+            await _mediator.Send(command);
+
+            var response = req.CreateResponse(HttpStatusCode.OK);
+            response.Headers.Add("Content-Type", "text/plain; charset=utf-8");
+
+            response.WriteString("deleted successfully !");
+
+            return response;
+        }
+
     }
 }
