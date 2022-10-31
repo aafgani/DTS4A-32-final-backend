@@ -52,7 +52,7 @@ stages:
               projects: |
                 $(workingDirectory)/*.csproj
               arguments: --no-restore --output $(System.DefaultWorkingDirectory)/publish_output --configuration Release
-
+          - task: SonarCloudAnalyze@1
           - task: ArchiveFiles@2
             displayName: "Archive files"
             inputs:
