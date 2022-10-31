@@ -53,6 +53,8 @@ stages:
                 $(workingDirectory)/*.csproj
               arguments: --no-restore --output $(System.DefaultWorkingDirectory)/publish_output --configuration Release
           - task: SonarCloudAnalyze@1
+          - task: SonarCloudPublish@1
+            displayName: 'Publish Quality Gate Result'
           - task: ArchiveFiles@2
             displayName: "Archive files"
             inputs:
