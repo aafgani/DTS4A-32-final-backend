@@ -42,7 +42,7 @@ stages:
           - task: SonarCloudPrepare@1
             inputs:
               SonarCloud: 'SonarCloud'
-              organization: 'Andrya Afgani'
+              organization: 'aafgani'
               scannerMode: 'MSBuild'
               projectKey: 'aafgani_DTS4A-32-final-backend'
           - task: DotNetCoreCLI@2
