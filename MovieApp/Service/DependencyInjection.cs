@@ -18,6 +18,7 @@ namespace MovieApp.Service
             services.AddMediatR(Assembly.GetExecutingAssembly());
 
             services.AddScoped<ITableStorage, TableStorage>();
+            services.AddScoped<ITodoTableClient, TodoTableClient>();
 
             return services;
         }

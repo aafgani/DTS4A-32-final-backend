@@ -20,8 +20,8 @@ namespace MovieApp.Service.Storage
         public TableStorage(IOptions<AppSettings> options)
         {
             var config = options.Value;
-            _connectionString = config.TableStorage;
-            _tableName = config.TableName;
+            _connectionString = config.ConnectionString.Storage;
+            _tableName = config.UserProfile.TableName;
 
             tableClient = new TableClient(_connectionString, _tableName);
             tableClient.CreateIfNotExists();

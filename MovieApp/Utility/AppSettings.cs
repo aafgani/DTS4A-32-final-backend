@@ -8,7 +8,17 @@ namespace MovieApp.Utility
 {
     public class AppSettings
     {
-        public string TableStorage { get; set; }
+        public ConnectionStrings ConnectionString { get; set; }
+        public TableStorage UserProfile { get; set; }
+        public TableStorage Todo { get; set; }
+    }
+    public class ConnectionStrings
+    {
+        public string Storage { get; set; }
+    }
+    public class TableStorage
+    {
         public string TableName { get; set; }
+       
     }
 }
