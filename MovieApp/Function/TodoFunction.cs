@@ -13,6 +13,7 @@ namespace MovieApp.Function
         private readonly ILogger _logger;
         private readonly ISender _mediator;
         private const string functionName = nameof(TodoFunction);
+        private const string _basePath = "todo";
 
         public TodoFunction(ILoggerFactory loggerFactory, ISender mediator)
         {
@@ -61,6 +62,22 @@ namespace MovieApp.Function
 
             var payload = await new StreamReader(req.Body).ReadToEndAsync();
             var command = JsonConvert.DeserializeObject<DeleteTodoCommand>(payload);
+            await _mediator.Send(command);
+
+            var response = req.CreateResponse(HttpStatusCode.OK);
+            response.Headers.Add("Content-Type", "text/plain; charset=utf-8");
+
+            response.WriteString("deleted successfully !");
+
+            return response;
+        }
+
+        [Function($"{functionName}-Delete-By-Id")]
+        public async Task<HttpResponseData> DeleteByIdAsync([HttpTrigger(AuthorizationLevel.Anonymous, "delete", Route = _basePath + "/{id}")] HttpRequestData req, string id)
+        {
+            _logger.LogInformation("C# HTTP trigger function processed a request.");
+
+            var command = new DeleteTodoCommand { Id = id };
             await _mediator.Send(command);
 
             var response = req.CreateResponse(HttpStatusCode.OK);
